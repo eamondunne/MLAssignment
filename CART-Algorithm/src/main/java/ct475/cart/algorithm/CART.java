@@ -5,10 +5,15 @@
  */
 package ct475.cart.algorithm;
 
+import java.util.ArrayList;
+
 /**
  * @author Cormac Buckley, Eamon Dunne
  */
 public class CART {
+    
+          private BinaryTree t = new BinaryTree();
+          private ArrayList<Integer> nodes = new ArrayList<Integer>(); 
 //    Data Stuff Goes Here
 
     /**
@@ -17,7 +22,6 @@ public class CART {
     public CART() {
 
     }
-
     /**
      * Calculate cost of split
      */
@@ -41,8 +45,11 @@ public class CART {
     /**
      * Build the tree
      */
-    void buildTree() {
-        
+    BinaryTree buildTree() {
+
+        BinaryTree bt = t.buildTree();   
+        return bt;
+    
     }
     
     /**
@@ -55,7 +62,17 @@ public class CART {
     /**
      * Print Tree
      */
-    void printTree() {
+    ArrayList printTree(Node current) {
+        System.out.println(current.value);
+         nodes.add(current.value);
+        if(current.left != null){
+        printTree(current.left);
         
+        }
+         if(current.right != null){
+        printTree(current.right);
+        
+        }
+        return nodes;
     }
 }
