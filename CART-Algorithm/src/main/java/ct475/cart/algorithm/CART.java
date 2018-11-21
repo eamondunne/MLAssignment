@@ -62,17 +62,16 @@ public class CART {
     /**
      * Print Tree
      */
-    ArrayList printTree(Node current) {
-        System.out.println(current.value);
-         nodes.add(current.value);
-        if(current.left != null){
-        printTree(current.left);
-        
+    void printTree(Node current, int level) {        
+        if(current == null)
+            return ;
+        if(level == 1){
+            System.out.println(current.value + " ");
         }
-         if(current.right != null){
-        printTree(current.right);
-        
+        else{ 
+        printTree(current.left, level-1);
+        printTree(current.right, level-1);
         }
-        return nodes;
+       
     }
 }

@@ -82,8 +82,9 @@ public class CARTTest {
         CART instance = new CART();
        BinaryTree bt = instance.buildTree();
         // TODO review the generated test code and remove the default call to fail.
-        
-        System.out.println(instance.printTree(bt.root));
+        for(int i = 1; i <= 5; i++){
+        instance.printTree(bt.root, i);
+        }
     }
 //
 //    /**
