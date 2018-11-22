@@ -5,6 +5,8 @@
  */
 package ct475.cart.algorithm;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Cormac Buckley
@@ -13,17 +15,12 @@ public class BinaryTree {
 
     Node root;
 
-    public BinaryTree buildTree() {
+    public BinaryTree buildTree(ArrayList<Integer> data) {
         BinaryTree bt = new BinaryTree();
-
         
-        bt.add(10);
-        bt.add(2);
-        bt.add(7);
-        bt.add(13);
-        bt.add(1);
-        bt.add(3);
-        bt.add(4);
+        for(int i: data){
+            bt.add(i);
+        }
 
         return bt;
     }

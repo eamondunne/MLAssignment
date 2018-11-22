@@ -5,6 +5,7 @@
  */
 package ct475.cart.algorithm;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -80,10 +81,20 @@ public class CARTTest {
     public void testBuildTree() {
         System.out.println("buildTree");
         CART instance = new CART();
-       BinaryTree bt = instance.buildTree();
+        ArrayList<Integer> bt = new ArrayList<Integer>();
+        bt.add(10);
+        bt.add(2);
+        bt.add(7);
+        bt.add(13);
+        bt.add(1);
+        bt.add(3);
+        bt.add(4);
+        
+        
+       BinaryTree t = instance.buildTree(bt);
         // TODO review the generated test code and remove the default call to fail.
-        for(int i = 1; i <= 5; i++){
-        instance.printTree(bt.root, i);
+        for(int i = 0; i <= bt.size(); i++){
+        instance.printTree(t.root, i);
         }
     }
 //

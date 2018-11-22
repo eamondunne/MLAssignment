@@ -45,9 +45,9 @@ public class CART {
     /**
      * Build the tree
      */
-    BinaryTree buildTree() {
+    BinaryTree buildTree(ArrayList<Integer> data) {
 
-        BinaryTree bt = t.buildTree();   
+        BinaryTree bt = t.buildTree(data);   
         return bt;
     
     }
