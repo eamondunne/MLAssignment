@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import static java.lang.Double.parseDouble;
 import java.util.ArrayList;
 
 public class ImportData {
@@ -21,7 +22,7 @@ public class ImportData {
     BufferedReader br = null;
     String line = "";
     String split;
-    ArrayList<String> features = new ArrayList<String>();
+    ArrayList<Double> features = new ArrayList<Double>();
     ArrayList<Integer> targets = new ArrayList<Integer>();
     ArrayList<String> targets_names = new ArrayList<String>();
 
@@ -38,7 +39,7 @@ public class ImportData {
                 String[] owls = line.split(split);
 
                 for (int i = 0; i < owls.length - 1; i++) {
-                    features.add(owls[i]);
+                    features.add(Double.parseDouble(owls[i]));
 
                 }
 
@@ -55,14 +56,34 @@ public class ImportData {
                 }
 
             }
-            System.out.println(features);
-            System.out.println(targets);
-            System.out.println(targets_names);
+//            System.out.println(features);
+//            System.out.println(targets);
+//            System.out.println(targets_names);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public ArrayList getFeatures(){
+        return features;
+    }
+      public ArrayList getTargets(){
+        return targets;
+    }
+      public ArrayList getTarget_Names(){
+        return targets_names;
+    }
+      
+          public void printFeatures(){
+        System.out.println(features);
+    }
+      public void printTargets(){
+        System.out.println(targets);
+    }
+      public void printTarget_Names(){
+        System.out.println(targets_names);
     }
 }

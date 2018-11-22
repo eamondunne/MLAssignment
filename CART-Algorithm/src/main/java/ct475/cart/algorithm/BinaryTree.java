@@ -15,17 +15,17 @@ public class BinaryTree {
 
     Node root;
 
-    public BinaryTree buildTree(ArrayList<Integer> data) {
+    public BinaryTree buildTree(ArrayList<Double> data) {
         BinaryTree bt = new BinaryTree();
         
-        for(int i: data){
+        for(double i: data){
             bt.add(i);
         }
 
         return bt;
     }
 
-    public Node insertRecursive(Node currentNode, int newNode) {
+    public Node insertRecursive(Node currentNode, double newNode) {
         if (currentNode == null) {
             return new Node(newNode);
         }
@@ -39,12 +39,12 @@ public class BinaryTree {
         return currentNode;
     }
 
-    public void add(int newNode) {
+    public void add(double newNode) {
         root = insertRecursive(root, newNode);
     }
 
     
-    public boolean checkForNode(Node currentNode, int targetNode){
+    public boolean checkForNode(Node currentNode, double targetNode){
         boolean result = false;
         if(currentNode == null){
             result = false;
@@ -61,7 +61,7 @@ public class BinaryTree {
         return result;
     }
     
-    public boolean containsNode(int value) {
+    public boolean containsNode(double value) {
     return checkForNode(root, value);
 }
     

@@ -79,16 +79,16 @@ public class CARTTest {
      */
     @Test
     public void testBuildTree() {
-        System.out.println("buildTree");
+        System.out.println("Build Tree of Doubles");
         CART instance = new CART();
-        ArrayList<Integer> bt = new ArrayList<Integer>();
-        bt.add(10);
-        bt.add(2);
-        bt.add(7);
-        bt.add(13);
-        bt.add(1);
-        bt.add(3);
-        bt.add(4);
+        ArrayList<Double> bt = new ArrayList<Double>();
+        bt.add(10.0);
+        bt.add(2.5);
+        bt.add(7.0);
+        bt.add(13.0);
+        bt.add(1.0);
+        bt.add(3.0);
+        bt.add(new Double(4));
         
         
        BinaryTree t = instance.buildTree(bt);
@@ -105,8 +105,7 @@ public class CARTTest {
     public void testSetData() {
         System.out.println("Importing data");
         CART instance = new CART();
-        instance.setData();
-        
+        instance.setData();        
     }
 //
 //    /**

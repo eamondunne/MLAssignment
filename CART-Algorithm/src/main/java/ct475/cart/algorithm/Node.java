@@ -10,11 +10,11 @@ package ct475.cart.algorithm;
  * @author Cormac Buckley
  */
 public class Node {
-    int value;
+    Double value;
     Node left;
     Node right;
     
-    public Node(int val){
+    public Node(Double val){
         this.value = val;
         this.left = null;
         this.right = null;

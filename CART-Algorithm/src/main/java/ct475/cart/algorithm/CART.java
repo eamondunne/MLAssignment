@@ -14,6 +14,7 @@ public class CART {
     
           private BinaryTree t = new BinaryTree();
           private ArrayList<Integer> nodes = new ArrayList<Integer>(); 
+          private ArrayList<Integer> features = new ArrayList<Integer>(); 
 //    Data Stuff Goes Here
 
     /**
@@ -45,7 +46,7 @@ public class CART {
     /**
      * Build the tree
      */
-    BinaryTree buildTree(ArrayList<Integer> data) {
+    BinaryTree buildTree(ArrayList<Double> data) {
 
         BinaryTree bt = t.buildTree(data);   
         return bt;
@@ -60,6 +61,10 @@ public class CART {
         String delim = ",";
         ImportData owls = new ImportData(file, delim);
         owls.readCSV();
+        owls.printFeatures();
+        owls.printTargets();
+        owls.printTarget_Names();
+       
     }
     
     /**
