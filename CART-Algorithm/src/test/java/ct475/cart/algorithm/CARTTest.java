@@ -101,14 +101,13 @@ public class CARTTest {
 //    /**
 //     * Test of setData method, of class CART.
 //     */
-//    @Test
-//    public void testSetData() {
-//        System.out.println("setData");
-//        CART instance = new CART();
-//        instance.setData();
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testSetData() {
+        System.out.println("Importing data");
+        CART instance = new CART();
+        instance.setData();
+        
+    }
 //
 //    /**
 //     * Test of printTree method, of class CART.

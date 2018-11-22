@@ -56,7 +56,10 @@ public class CART {
      * Set Data
      */
     void setData() {
-
+        String file = "C:\\Users\\I342042\\Documents\\College\\4th Year\\Machine Learning & Data Mining\\Assignments\\Assignment3\\MLAssignment\\owls.csv";
+        String delim = ",";
+        ImportData owls = new ImportData(file, delim);
+        owls.readCSV();
     }
     
     /**
