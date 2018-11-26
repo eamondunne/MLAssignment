@@ -22,7 +22,7 @@ public class ImportData {
     BufferedReader br = null;
     String line = "";
     String split;
-    ArrayList<Double> features = new ArrayList<Double>();
+    ArrayList<ArrayList<Double>> features = new ArrayList<ArrayList<Double>>();
     ArrayList<Integer> targets = new ArrayList<Integer>();
     ArrayList<String> targets_names = new ArrayList<String>();
 
@@ -33,13 +33,13 @@ public class ImportData {
 
     public void readCSV() {
         try {
-
+int x = 0;
             br = new BufferedReader(new FileReader(CSVFile));
             while ((line = br.readLine()) != null) {
                 String[] owls = line.split(split);
 
                 for (int i = 0; i < owls.length - 1; i++) {
-                    features.add(Double.parseDouble(owls[i]));
+                    features.get(x).add(Double.parseDouble(owls[i]));
 
                 }
 
@@ -54,7 +54,7 @@ public class ImportData {
                     }
 
                 }
-
+x++;
             }
 //            System.out.println(features);
 //            System.out.println(targets);

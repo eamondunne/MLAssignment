@@ -65,48 +65,48 @@ public class CARTTest {
 //    /**
 //     * Test of splitTree method, of class CART.
 //     */
-//    @Test
-//    public void testSplitTree() {
-//        System.out.println("splitTree");
-//        CART instance = new CART();
-//        instance.splitTree();
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testSplitTree() {
+        System.out.println("splitTree");
+        CART instance = new CART();
+        //instance.setData(); 
+        instance.splitTree(instance.features);
+        // TODO review the generated test code and remove the default call to fail.
+    }
 
     /**
      * Test of buildTree method, of class CART.
      */
-    @Test
-    public void testBuildTree() {
-        System.out.println("Build Tree of Doubles");
-        CART instance = new CART();
-        ArrayList<Double> bt = new ArrayList<Double>();
-        bt.add(10.0);
-        bt.add(2.5);
-        bt.add(7.0);
-        bt.add(13.0);
-        bt.add(1.0);
-        bt.add(3.0);
-        bt.add(new Double(4));
-        
-        
-       Tree t = instance.buildTree(bt);
-        // TODO review the generated test code and remove the default call to fail.
-        for(int i = 0; i <= bt.size(); i++){
-        instance.printTree(t.root, i);
-        }
-    }
+//    @Test
+//    public void testBuildTree() {
+//        System.out.println("Build Tree of Doubles");
+//        CART instance = new CART();
+//        ArrayList<Double> bt = new ArrayList<Double>();
+//        bt.add(10.0);
+//        bt.add(2.5);
+//        bt.add(7.0);
+//        bt.add(13.0);
+//        bt.add(1.0);
+//        bt.add(3.0);
+//        bt.add(new Double(4));
+//        
+//        
+//       Tree t = instance.buildTree(bt);
+//        // TODO review the generated test code and remove the default call to fail.
+//        for(int i = 0; i <= bt.size(); i++){
+//        instance.printTree(t.root, i);
+//        }
+//    }
 //
 //    /**
 //     * Test of setData method, of class CART.
 //     */
-    @Test
-    public void testSetData() {
-        System.out.println("Importing data");
-        CART instance = new CART();
-        instance.setData();        
-    }
+//    @Test
+//    public void testSetData() {
+//        System.out.println("Importing data");
+//        CART instance = new CART();
+//        instance.setData();        
+//    }
 //
 //    /**
 //     * Test of printTree method, of class CART.
