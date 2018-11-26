@@ -11,12 +11,12 @@ import java.util.ArrayList;
  *
  * @author Cormac Buckley
  */
-public class BinaryTree {
+public class Tree {
 
     Node root;
 
-    public BinaryTree buildTree(ArrayList<Double> data) {
-        BinaryTree bt = new BinaryTree();
+    public Tree buildTree(ArrayList<Double> data) {
+        Tree bt = new Tree();
         
         for(double i: data){
             bt.add(i);

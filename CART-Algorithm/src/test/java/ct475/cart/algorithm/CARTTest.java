@@ -91,7 +91,7 @@ public class CARTTest {
         bt.add(new Double(4));
         
         
-       BinaryTree t = instance.buildTree(bt);
+       Tree t = instance.buildTree(bt);
         // TODO review the generated test code and remove the default call to fail.
         for(int i = 0; i <= bt.size(); i++){
         instance.printTree(t.root, i);

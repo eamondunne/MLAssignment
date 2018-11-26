@@ -11,10 +11,10 @@ import java.util.ArrayList;
  * @author Cormac Buckley, Eamon Dunne
  */
 public class CART {
-    
-          private BinaryTree t = new BinaryTree();
-          private ArrayList<Integer> nodes = new ArrayList<Integer>(); 
-          private ArrayList<Integer> features = new ArrayList<Integer>(); 
+
+    private Tree t = new Tree();
+    private ArrayList<Integer> nodes = new ArrayList<Integer>();
+    private ArrayList<Integer> features = new ArrayList<Integer>();
 //    Data Stuff Goes Here
 
     /**
@@ -23,6 +23,7 @@ public class CART {
     public CART() {
 
     }
+
     /**
      * Calculate cost of split
      */
@@ -31,8 +32,8 @@ public class CART {
     }
 
     /**
-    * Test costs for split
-    */
+     * Test costs for split
+     */
     void testSplits() {
 
     }
@@ -43,43 +44,44 @@ public class CART {
     void splitTree() {
 
     }
+
     /**
      * Build the tree
      */
-    BinaryTree buildTree(ArrayList<Double> data) {
+    Tree buildTree(ArrayList<Double> data) {
 
-        BinaryTree bt = t.buildTree(data);   
+        Tree bt = t.buildTree(data);
         return bt;
-    
+
     }
-    
+
     /**
      * Set Data
      */
     void setData() {
-        String file = "C:\\Users\\I342042\\Documents\\College\\4th Year\\Machine Learning & Data Mining\\Assignments\\Assignment3\\MLAssignment\\owls.csv";
+        String file = "owls.csv";
         String delim = ",";
         ImportData owls = new ImportData(file, delim);
         owls.readCSV();
         owls.printFeatures();
         owls.printTargets();
         owls.printTarget_Names();
-       
+
     }
-    
+
     /**
      * Print Tree
      */
-    void printTree(Node current, int level) {        
-        if(current == null)
-            return ;
-        if(level == 1){
+    void printTree(Node current, int level) {
+        if (current == null) {
+            return;
+        }
+        if (level == 1) {
             System.out.println(current.value + " ");
+        } else {
+            printTree(current.left, level - 1);
+            printTree(current.right, level - 1);
         }
-        else{ 
-        printTree(current.left, level-1);
-        printTree(current.right, level-1);
-        }
-       
+
     }
 }
