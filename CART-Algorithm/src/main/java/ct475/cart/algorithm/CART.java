@@ -36,6 +36,13 @@ public class CART {
      * Calculate cost of split
      */
     double getSplitCost(ArrayList<Entry> leftSplit, ArrayList<Entry> rightSplit, ArrayList<String> targets) {
+        if(leftSplit.size() == 0){
+            return 1;
+        }
+        else if(rightSplit.size() == 0){
+            return 1;
+        }
+        else{
         double gini = 0.0;
         double size;
         double leftscore = 1, rightscore = 1;
@@ -94,7 +101,7 @@ public class CART {
 
         return gini;
     }
-
+    }
     /**
      * Test costs for split
      */
@@ -114,10 +121,10 @@ public class CART {
      */
     void splitTree(ArrayList<Entry> features) {
         double giniIndex;
-        double lowestIndex = 1000, lowestScore = 1000;
+        double lowestIndex = 1000, lowestScore = 1;
+        int colToSplit = 100;
         double lowestVal = 1000;
-//        CHANGE i<1 back to features.size()
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < features.size(); i++) {
             for (int x = 0; x < features.get(i).ColumnData.size(); x++) {
                 leftSplit.clear();
                 rightSplit.clear();
@@ -126,6 +133,7 @@ public class CART {
                 if (giniIndex < lowestScore) {
                     lowestIndex = i;
                     lowestVal = features.get(i).ColumnData.get(x);
+                    colToSplit = x;
                     lowestScore = giniIndex;
                     bestLeftSplit = leftSplit;
                     bestRightSplit = rightSplit;
@@ -133,8 +141,9 @@ public class CART {
                 }
             }
         }
-        System.out.println(lowestScore);
+        System.out.println("Best gini Score: " + lowestScore);
         System.out.println(lowestVal);
+        System.out.println("Column to split on: " + colToSplit);
         System.out.println(bestLeftSplit.get(1).ColumnData);
         System.out.println(bestRightSplit.get(1).ColumnData);
 

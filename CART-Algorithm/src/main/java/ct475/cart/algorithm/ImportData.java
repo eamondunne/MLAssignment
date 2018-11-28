@@ -88,9 +88,9 @@ x++;
       public ArrayList getTargets(){
         return targets;
     }
-      public ArrayList getTarget_Names(){
-        return targets_names;
-    }
+//      public ArrayList getTarget_Names(){
+//        return targets_names;
+//    }
       
           public void printFeatures(){
         System.out.println(features);
@@ -98,7 +98,7 @@ x++;
       public void printTargets(){
         System.out.println(targets);
     }
-      public void printTarget_Names(){
-        System.out.println(targets_names);
-    }
+//      public void printTarget_Names(){
+//        System.out.println(targets_names);
+//    }
 }
