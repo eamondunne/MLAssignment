@@ -21,34 +21,37 @@ public class CARTTest {
     
     public CARTTest() {
     }
-    
-//    @BeforeClass
-//    public static void setUpClass() {
-//    }
-//    
-//    @AfterClass
-//    public static void tearDownClass() {
-//    }
-//    
-//    @Before
-//    public void setUp() {
-//    }
-//    
-//    @After
-//    public void tearDown() {
-//    }
-
     /**
      * Test of getSplitCost method, of class CART.
      */
-//    @Test
-//    public void testGetSplitCost() {
-//        System.out.println("getSplitCost");
-//        CART instance = new CART();
-//        instance.getSplitCost();
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testGetSplitCost() {
+        System.out.println("getSplitCost");
+        CART instance = new CART();
+        ArrayList<ArrayList<Double>> leftSplit = new ArrayList();
+        ArrayList<ArrayList<Double>> rightSplit = new ArrayList();
+        ArrayList<Integer> targets = new ArrayList();
+        double gini;
+        
+        ArrayList<Double> attribsLeft = new ArrayList();
+        ArrayList<Double> attribsRight = new ArrayList();
+        
+        attribsLeft.add(3.03);
+        attribsLeft.add(7.02);
+        attribsLeft.add(1.00);
+        leftSplit.add(attribsLeft);
+        targets.add(0);
+        targets.add(1);
+
+        attribsRight.add(2.03);
+        attribsRight.add(1.02);
+        attribsRight.add(0.00);
+        leftSplit.add(attribsRight);
+        
+        
+        gini = instance.getSplitCost(leftSplit, rightSplit, targets);
+        System.out.println(gini);
+    }
 //
 //    /**
 //     * Test of testSplits method, of class CART.
@@ -65,14 +68,14 @@ public class CARTTest {
 //    /**
 //     * Test of splitTree method, of class CART.
 //     */
-    @Test
-    public void testSplitTree() {
-        System.out.println("splitTree");
-        CART instance = new CART();
-        //instance.setData(); 
-        instance.splitTree(instance.features);
-        // TODO review the generated test code and remove the default call to fail.
-    }
+//    @Test
+//    public void testSplitTree() {
+//        System.out.println("splitTree");
+//        CART instance = new CART();
+//        //instance.setData(); 
+//        instance.splitTree(instance.features);
+//        // TODO review the generated test code and remove the default call to fail.
+//    }
 
     /**
      * Test of buildTree method, of class CART.
