@@ -22,7 +22,8 @@ public class ImportData {
     BufferedReader br = null;
     String line = "";
     String split;
-    ArrayList<ArrayList<Double>> features = new ArrayList<ArrayList<Double>>();
+    ArrayList<Entry> features = new ArrayList<Entry>();
+    
     ArrayList<Integer> targets = new ArrayList<Integer>();
     ArrayList<String> targets_names = new ArrayList<String>();
 
@@ -33,16 +34,22 @@ public class ImportData {
 
     public void readCSV() {
         try {
-int x = 0;
+            ArrayList<Double> index = new ArrayList<Double>();
+                int x = 0;
+                
             br = new BufferedReader(new FileReader(CSVFile));
             while ((line = br.readLine()) != null) {
+                
                 String[] owls = line.split(split);
-
+                ArrayList<Double> tempFeatures = new ArrayList<Double>();
                 for (int i = 0; i < owls.length - 1; i++) {
-                    features.get(x).add(Double.parseDouble(owls[i]));
+                   tempFeatures.add(Double.parseDouble(owls[i]));
 
                 }
-
+                
+                features.add(new Entry(x, tempFeatures));
+                
+                
                 for (int i = owls.length - 1; i < owls.length; i++) {
                     targets_names.add(owls[i]);
                     if (owls[i].startsWith("LongEaredOwl")) {
@@ -54,11 +61,14 @@ int x = 0;
                     }
 
                 }
+//                  System.out.print(features.get(x).ColumnData);
+//                  System.out.print(" [" + targets.get(x)  + "] ");
+//                  System.out.print(targets_names.get(x));
+//                  System.out.println();
 x++;
             }
-//            System.out.println(features);
-//            System.out.println(targets);
-//            System.out.println(targets_names);
+         
+
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -67,7 +77,7 @@ x++;
         }
     }
     
-    public ArrayList getFeatures(){
+    public ArrayList<Entry> getFeatures(){
         return features;
     }
       public ArrayList getTargets(){
