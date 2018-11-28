@@ -23,9 +23,10 @@ public class ImportData {
     String line = "";
     String split;
     ArrayList<Entry> features = new ArrayList<Entry>();
-    
-    ArrayList<Integer> targets = new ArrayList<Integer>();
-    ArrayList<String> targets_names = new ArrayList<String>();
+    ArrayList<String> targets = new ArrayList<String>();
+//    
+//    ArrayList<Integer> targets = new ArrayList<Integer>();
+//    ArrayList<String> targets_names = new ArrayList<String>();
 
     public ImportData(String file, String delim) {
         this.CSVFile = file;
@@ -41,26 +42,30 @@ public class ImportData {
             while ((line = br.readLine()) != null) {
                 
                 String[] owls = line.split(split);
+                String target;
                 ArrayList<Double> tempFeatures = new ArrayList<Double>();
                 for (int i = 0; i < owls.length - 1; i++) {
                    tempFeatures.add(Double.parseDouble(owls[i]));
-
+                   
+                }
+                target = owls[owls.length-1];
+                
+                features.add(new Entry(x, tempFeatures, target));
+                if(!targets.contains(target)){
+                    targets.add(target);
                 }
                 
-                features.add(new Entry(x, tempFeatures));
-                
-                
-                for (int i = owls.length - 1; i < owls.length; i++) {
-                    targets_names.add(owls[i]);
-                    if (owls[i].startsWith("LongEaredOwl")) {
-                        targets.add(0);
-                    } else if (owls[i].startsWith("SnowyOwl")) {
-                        targets.add(1);
-                    } else if (owls[i].startsWith("BarnOwl")) {
-                        targets.add(2);
-                    }
-
-                }
+//                for (int i = owls.length - 1; i < owls.length; i++) {
+//                    targets_names.add(owls[i]);
+//                    if (owls[i].startsWith("LongEaredOwl")) {
+//                        targets.add(0);
+//                    } else if (owls[i].startsWith("SnowyOwl")) {
+//                        targets.add(1);
+//                    } else if (owls[i].startsWith("BarnOwl")) {
+//                        targets.add(2);
+//                    }
+//
+//                }
 //                  System.out.print(features.get(x).ColumnData);
 //                  System.out.print(" [" + targets.get(x)  + "] ");
 //                  System.out.print(targets_names.get(x));

@@ -13,12 +13,12 @@ import java.util.ArrayList;
  */
 public class Entry {
     int Row = 0;
-    ArrayList<Double> ColumnData = new ArrayList<Double>();
+    public ArrayList<Double> ColumnData = new ArrayList<Double>();
+    public String Target;
     
-    
-    
-    public Entry(int Row, ArrayList<Double> Cols){
+    public Entry(int Row, ArrayList<Double> Cols, String Target){
         this.Row = 0;
         this.ColumnData = Cols;
+        this.Target = Target;
     }
 }

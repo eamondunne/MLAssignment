@@ -16,7 +16,7 @@ public class CART {
     private Tree t = new Tree();
     private ArrayList<Integer> nodes = new ArrayList<Integer>();
     public ArrayList<Entry> features = new ArrayList<Entry>();
-    private ArrayList<Integer> targets = new ArrayList<Integer>();
+    private ArrayList<String> targets = new ArrayList<String>();
     
     private ArrayList<Entry> leftSplit = new ArrayList<Entry>();
     private ArrayList<Entry> rightSplit = new ArrayList<Entry>();
@@ -35,8 +35,79 @@ public class CART {
     /**
      * Calculate cost of split
      */
-    int getSplitCost(ArrayList<Entry> leftSplit,ArrayList<Entry> rightSplit, ArrayList<Integer> targets) {
-       return (int)(Math.random()*100) + 1;
+    double getSplitCost(ArrayList<Entry> leftSplit,ArrayList<Entry> rightSplit, ArrayList<String> targets) {
+        double gini = 0.0;
+        double size;
+        double score = 1;
+        double p = 0;
+        String classVal;
+        double occurences = 0;
+
+        int totalSize = leftSplit.size() + rightSplit.size();
+        System.out.println("Score: " + score);
+        System.out.println("Total Size: " + totalSize);
+        System.out.println("LEFT SIZE: " + leftSplit.size());
+        System.out.println("RIGHT SIZE: " + rightSplit.size());
+        for (String t : targets){
+            occurences = 0;
+            System.out.println(t);
+            for (Entry e : leftSplit){
+                if (e.Target.equals(t)){
+                    occurences++;
+                }
+            }
+            System.out.println("Occurences: " + occurences);
+            p = (double)occurences / (double)leftSplit.size();
+            System.out.println("p: " + p);
+            
+            score -= (p*p);
+            System.out.println("Score: " + score);
+        }
+        
+        System.out.println("END");
+        
+        
+//        size = leftSplit.size();
+        //TODO FIX THIS
+//        if (size == 0) {
+//            size = 1;
+//        }
+//        score = 0.0;
+        /* Left Split Calculation goes here*/
+//        System.out.println(targets.size());
+//        for(Entry e : leftSplit){
+//            for(Double d : e.ColumnData){
+//                System.out.println(d);
+//            }
+//            System.out.println(e.Target);
+//        }
+
+        
+//        System.out.println("NEXTITER");
+//        for (String val : targets) {
+////            for (Entry attrib : leftSplit){
+////                classVal = attrib.Target;
+////                if(val.equals(classVal)){
+////                    p++;
+////                    System.out.println("MATCHING VALS");
+////                }
+////            }
+//            System.out.println(val);
+//        }
+            
+            
+//            for (ArrayList attrib : leftSplit) {
+//                classVal = (double) attrib.get(attrib.size() - 1);
+//                if (classVal == val) {
+//                    p++;
+//                }
+//
+//                proportion = p / size;
+//                score += proportion * proportion;
+//            }
+//            gini += (1.0 - score) * (size / 2);
+//        }
+        return 0;
     }
 
     /**
@@ -57,11 +128,14 @@ public class CART {
      * Split the tree
      */
     void splitTree(ArrayList<Entry> features) {
-        int giniIndex;
-        int lowestIndex = 1000,lowestScore = 1000;
+        double giniIndex;
+        double lowestIndex = 1000,lowestScore = 1000;
         double lowestVal = 1000;
-            for(int i = 0; i < features.size(); i++){
+//        CHANGE i<1 back to features.size()
+            for(int i = 0; i < 1; i++){
                 for(int x = 0; x < features.get(i).ColumnData.size(); x++){
+                    leftSplit.clear();
+                    rightSplit.clear();
                     testSplits(x, features.get(i).ColumnData.get(x),features);
                     giniIndex = getSplitCost(leftSplit, rightSplit, targets);
                     if(giniIndex < lowestScore){
@@ -100,6 +174,11 @@ public class CART {
         ImportData owls = new ImportData(file, delim);
         owls.readCSV();
         this.features = owls.getFeatures();
+        this.targets = owls.getTargets();
+        for(String a : targets){
+            System.out.println(a);
+        }
+//        System.out.println(targets);
 //        System.out.println(features.get(134).ColumnData);
        // owls.printFeatures();
        // owls.printTargets();
