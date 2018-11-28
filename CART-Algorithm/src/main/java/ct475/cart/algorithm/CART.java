@@ -17,10 +17,10 @@ public class CART {
     private ArrayList<Integer> nodes = new ArrayList<Integer>();
     public ArrayList<Entry> features = new ArrayList<Entry>();
     private ArrayList<String> targets = new ArrayList<String>();
-    
+
     private ArrayList<Entry> leftSplit = new ArrayList<Entry>();
     private ArrayList<Entry> rightSplit = new ArrayList<Entry>();
-    
+
     private ArrayList<Entry> bestLeftSplit = new ArrayList<Entry>();
     private ArrayList<Entry> bestRightSplit = new ArrayList<Entry>();
 //    Data Stuff Goes Here
@@ -35,93 +35,78 @@ public class CART {
     /**
      * Calculate cost of split
      */
-    double getSplitCost(ArrayList<Entry> leftSplit,ArrayList<Entry> rightSplit, ArrayList<String> targets) {
+    double getSplitCost(ArrayList<Entry> leftSplit, ArrayList<Entry> rightSplit, ArrayList<String> targets) {
         double gini = 0.0;
         double size;
-        double score = 1;
+        double leftscore = 1, rightscore = 1;
         double p = 0;
+        double psqr;
         String classVal;
         double occurences = 0;
 
-        int totalSize = leftSplit.size() + rightSplit.size();
-        System.out.println("Score: " + score);
+        double totalSize = leftSplit.size() + rightSplit.size();
+//        LEFT
+        System.out.println("PRE Left Score: " + leftscore);
         System.out.println("Total Size: " + totalSize);
         System.out.println("LEFT SIZE: " + leftSplit.size());
         System.out.println("RIGHT SIZE: " + rightSplit.size());
-        for (String t : targets){
+        for (String t : targets) {
             occurences = 0;
             System.out.println(t);
-            for (Entry e : leftSplit){
-                if (e.Target.equals(t)){
+            for (Entry e : leftSplit) {
+                if (e.Target.equals(t)) {
                     occurences++;
                 }
             }
             System.out.println("Occurences: " + occurences);
-            p = (double)occurences / (double)leftSplit.size();
-            System.out.println("p: " + p);
-            
-            score -= (p*p);
-            System.out.println("Score: " + score);
+            p = (double) occurences / (double) leftSplit.size();
+            psqr = p*p;
+            System.out.println("psqr: " + psqr);
+            leftscore -= psqr;
+            System.out.println("Left Score: " + leftscore);
         }
+        gini = ((1 - leftscore)*(leftSplit.size() / totalSize));
+        System.out.println("GINILEFT: " + gini);
         
-        System.out.println("END");
-        
-        
-//        size = leftSplit.size();
-        //TODO FIX THIS
-//        if (size == 0) {
-//            size = 1;
-//        }
-//        score = 0.0;
-        /* Left Split Calculation goes here*/
-//        System.out.println(targets.size());
-//        for(Entry e : leftSplit){
-//            for(Double d : e.ColumnData){
-//                System.out.println(d);
-//            }
-//            System.out.println(e.Target);
-//        }
+//        RIGHT SIDE
+        System.out.println("PRE Right Score: " + rightscore);
+//        System.out.println("Total Size: " + totalSize);
+//        System.out.println("LEFT SIZE: " + leftSplit.size());
+//        System.out.println("RIGHT SIZE: " + rightSplit.size());
+        for (String t : targets) {
+            occurences = 0;
+            System.out.println(t);
+            for (Entry e : rightSplit) {
+                if (e.Target.equals(t)) {
+                    occurences++;
+                }
+            }
+            System.out.println("Occurences: " + occurences);
+            p = (double) occurences / (double) rightSplit.size();
+            psqr = p*p;
+            System.out.println("psqr: " + psqr);
+            rightscore -= psqr;
+            System.out.println("Score: " + rightscore);
+        }
+        gini += (1 - rightscore)*(rightSplit.size() / totalSize);
+        System.out.println("GINITOTAL: " + gini);
+        System.out.println("END\n\n\n");
 
-        
-//        System.out.println("NEXTITER");
-//        for (String val : targets) {
-////            for (Entry attrib : leftSplit){
-////                classVal = attrib.Target;
-////                if(val.equals(classVal)){
-////                    p++;
-////                    System.out.println("MATCHING VALS");
-////                }
-////            }
-//            System.out.println(val);
-//        }
-            
-            
-//            for (ArrayList attrib : leftSplit) {
-//                classVal = (double) attrib.get(attrib.size() - 1);
-//                if (classVal == val) {
-//                    p++;
-//                }
-//
-//                proportion = p / size;
-//                score += proportion * proportion;
-//            }
-//            gini += (1.0 - score) * (size / 2);
-//        }
-        return 0;
+        return gini;
     }
 
     /**
      * Test costs for split
      */
     void testSplits(int index, double featureCheck, ArrayList<Entry> features) {
-      
-        for(int x = 0; x < features.size(); x++){
-            if(features.get(x).ColumnData.get(index) > featureCheck){
+
+        for (int x = 0; x < features.size(); x++) {
+            if (features.get(x).ColumnData.get(index) > featureCheck) {
                 rightSplit.add(features.get(x));
-            }else{
+            } else {
                 leftSplit.add(features.get(x));
             }
-        }        
+        }
     }
 
     /**
@@ -129,30 +114,30 @@ public class CART {
      */
     void splitTree(ArrayList<Entry> features) {
         double giniIndex;
-        double lowestIndex = 1000,lowestScore = 1000;
+        double lowestIndex = 1000, lowestScore = 1000;
         double lowestVal = 1000;
 //        CHANGE i<1 back to features.size()
-            for(int i = 0; i < 1; i++){
-                for(int x = 0; x < features.get(i).ColumnData.size(); x++){
-                    leftSplit.clear();
-                    rightSplit.clear();
-                    testSplits(x, features.get(i).ColumnData.get(x),features);
-                    giniIndex = getSplitCost(leftSplit, rightSplit, targets);
-                    if(giniIndex < lowestScore){
-                        lowestIndex = i; 
-                        lowestVal = features.get(i).ColumnData.get(x);
-                        lowestScore = giniIndex;
-                        bestLeftSplit = leftSplit;
-                        bestRightSplit = rightSplit;
-                        
-                    }
-                 }
+        for (int i = 0; i < 1; i++) {
+            for (int x = 0; x < features.get(i).ColumnData.size(); x++) {
+                leftSplit.clear();
+                rightSplit.clear();
+                testSplits(x, features.get(i).ColumnData.get(x), features);
+                giniIndex = getSplitCost(leftSplit, rightSplit, targets);
+                if (giniIndex < lowestScore) {
+                    lowestIndex = i;
+                    lowestVal = features.get(i).ColumnData.get(x);
+                    lowestScore = giniIndex;
+                    bestLeftSplit = leftSplit;
+                    bestRightSplit = rightSplit;
+
+                }
             }
-            System.out.println(lowestScore);  
-            System.out.println(lowestVal);  
-            System.out.println(bestLeftSplit.get(1).ColumnData);  
-            System.out.println(bestRightSplit.get(1).ColumnData);  
-            
+        }
+        System.out.println(lowestScore);
+        System.out.println(lowestVal);
+        System.out.println(bestLeftSplit.get(1).ColumnData);
+        System.out.println(bestRightSplit.get(1).ColumnData);
+
     }
 
     /**
@@ -175,14 +160,14 @@ public class CART {
         owls.readCSV();
         this.features = owls.getFeatures();
         this.targets = owls.getTargets();
-        for(String a : targets){
+        for (String a : targets) {
             System.out.println(a);
         }
 //        System.out.println(targets);
 //        System.out.println(features.get(134).ColumnData);
-       // owls.printFeatures();
-       // owls.printTargets();
-       // owls.printTarget_Names();
+        // owls.printFeatures();
+        // owls.printTargets();
+        // owls.printTarget_Names();
 
     }
 
