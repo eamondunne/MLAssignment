@@ -69,7 +69,7 @@ public class CARTTest {
     public void testSplitTree() {
         System.out.println("splitTree");
         CART instance = new CART();
-        //instance.setData(); 
+        instance.setData(); 
         instance.splitTree(instance.features);
         // TODO review the generated test code and remove the default call to fail.
     }
