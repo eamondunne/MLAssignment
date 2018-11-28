@@ -17,12 +17,13 @@ public class CART {
     private ArrayList<Integer> nodes = new ArrayList<Integer>();
     public ArrayList<ArrayList<Double>> features = new ArrayList<ArrayList<Double>>();
     private ArrayList<Integer> targets = new ArrayList<Integer>();
-
+    
     private ArrayList<ArrayList<Double>> leftSplit = new ArrayList<ArrayList<Double>>();
     private ArrayList<ArrayList<Double>> rightSplit = new ArrayList<ArrayList<Double>>();
-
+    
     private ArrayList<ArrayList<Double>> bestLeftSplit = new ArrayList<ArrayList<Double>>();
     private ArrayList<ArrayList<Double>> bestRightSplit = new ArrayList<ArrayList<Double>>();
+//    Data Stuff Goes Here
 
     /**
      * Constructor
@@ -34,84 +35,48 @@ public class CART {
     /**
      * Calculate cost of split
      */
-    double getSplitCost(ArrayList<ArrayList<Double>> leftSplit, ArrayList<ArrayList<Double>> rightSplit, ArrayList<Integer> targets) {
-        double gini = 0.0;
-        double size;
-        double score;
-        double proportion = 0;
-        double classVal;
-        double p = 0;
-
-        int num_samples = leftSplit.size() + rightSplit.size();
-        size = leftSplit.size();
-        //TODO FIX THIS
-        if (size == 0) {
-            size = 1;
-        }
-        score = 0.0;
-        /* Left Split Calculation goes here*/
-        for (int val : targets) {
-            
-            for (ArrayList attrib : leftSplit) {
-                classVal = (double) attrib.get(attrib.size() - 1);
-                if (classVal == val) {
-                    p++;
-                }
-
-                proportion = p / size;
-                score += proportion * proportion;
-            }
-            gini += (1.0 - score) * (size / 2);
-        }
-        
-//        size = rightSplit.size();
-//        /* Right Split Calculation goes here, same as above..*/
-//        for (int val : targets) {
-//            for (ArrayList attrib : rightSplit){
-//                
-//            }
-//        }
-
-        return gini;
+    int getSplitCost(ArrayList<ArrayList<Double>> leftSplit,ArrayList<ArrayList<Double>> rightSplit, ArrayList<Integer> targets) {
+       return (int)(Math.random()*500) + 1; 
     }
 
     /**
      * Test costs for split
      */
     void testSplits(int index, double featureCheck, ArrayList<ArrayList<Double>> features) {
-
-        for (int x = 0; x < features.get(0).size(); x++) {
-            if (features.get(x).get(index) > featureCheck) {
+      
+        for(int x = 0; x < features.get(0).size(); x++){
+            if(features.get(x).get(index) > featureCheck){
                 rightSplit.add(features.get(x));
-            } else {
+            }else{
                 leftSplit.add(features.get(x));
             }
-        }
+        }        
     }
 
     /**
      * Split the tree
      */
     void splitTree(ArrayList<ArrayList<Double>> features) {
-        double giniIndex;
-        double lowestIndex = 1000, lowestScore = 1000;
+        int giniIndex;
+        int lowestIndex = 1000,lowestScore = 1000;
         double lowestVal = 1000;
-        for (int i = 0; i < features.size(); i++) {
-            for (int x = 0; x < features.get(i).size(); x++) {
-                testSplits(i, features.get(i).get(x), features);
-                giniIndex = getSplitCost(leftSplit, rightSplit, targets);
-                if (giniIndex < lowestScore) {
-                    lowestIndex = i;
-                    lowestVal = features.get(i).get(x);
-                    lowestScore = giniIndex;
-                    bestLeftSplit = leftSplit;
-                    bestRightSplit = rightSplit;
-                }
+            for(int i = 0; i < features.size(); i++){
+                for(int x = 0; x < features.get(i).size(); x++){
+                    testSplits(i, features.get(i).get(x),features);
+                    giniIndex = getSplitCost(leftSplit, rightSplit, targets);
+                    if(giniIndex < lowestScore){
+                        lowestIndex = i; 
+                        lowestVal = features.get(i).get(x);
+                        lowestScore = giniIndex;
+                        bestLeftSplit = leftSplit;
+                        bestRightSplit = rightSplit;
+                    }
+                 }
             }
-        }
-
-        System.out.println(lowestScore);
-
+            
+            System.out.println(lowestScore);
+            
+            
     }
 
     /**
@@ -132,9 +97,9 @@ public class CART {
         String delim = ",";
         ImportData owls = new ImportData(file, delim);
         owls.readCSV();
-        // owls.printFeatures();
-        // owls.printTargets();
-        // owls.printTarget_Names();
+       // owls.printFeatures();
+       // owls.printTargets();
+       // owls.printTarget_Names();
 
     }
 
