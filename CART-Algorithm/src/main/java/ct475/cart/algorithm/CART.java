@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class CART {
 
-    private Tree t = new Tree();
+//    private Tree t = new Tree();
     private ArrayList<Integer> nodes = new ArrayList<Integer>();
     public ArrayList<Entry> features = new ArrayList<Entry>();
     private ArrayList<String> targets = new ArrayList<String>();
@@ -103,7 +103,7 @@ public class CART {
     }
 
     /**
-     * Test costs for split
+     * Test costs for split to find best feature
      */
     void testSplits(int index, double featureCheck, ArrayList<Entry> features) {
 
@@ -120,102 +120,102 @@ public class CART {
      * Split the tree
      */
     void splitTree(ArrayList<Entry> features) {
-       
+
         double giniIndex;
         int lowestIndex = 1000;
         double lowestScore = 1;
         int colToSplit = 100;
-        double lowestVal = 1000;
+        double valToSplit = 1000;
         for (int i = 0; i < features.size(); i++) {
-            for (int x = 0; x < features.get(i).ColumnData.size(); x++) {   
+            for (int x = 0; x < features.get(i).ColumnData.size(); x++) {
                 leftSplit.clear();
-                  rightSplit.clear();
+                rightSplit.clear();
                 testSplits(x, features.get(i).ColumnData.get(x), features);
                 giniIndex = getSplitCost(leftSplit, rightSplit, targets);
                 if (giniIndex < lowestScore) {
                     lowestIndex = i;
-                    lowestVal = features.get(i).ColumnData.get(x);
+                    valToSplit = features.get(i).ColumnData.get(x);
                     colToSplit = x;
                     lowestScore = giniIndex;
                     bestLeftSplit = leftSplit;
-                    bestRightSplit = rightSplit;         
+                    bestRightSplit = rightSplit;
                 }
-                 
-            
             }
-          
         }
         System.out.println("Best gini Score: " + lowestScore);
-        System.out.println(lowestVal);
+        System.out.println(valToSplit);
         System.out.println("Column to split on: " + colToSplit);
         System.out.print(bestLeftSplit.get(lowestIndex).ColumnData);
         System.out.println(bestLeftSplit.get(lowestIndex).Target);
         System.out.print(bestRightSplit.get(lowestIndex).ColumnData);
         System.out.println(bestRightSplit.get(lowestIndex).Target);
-   
+
     }
     
-    Entry createLeaf(ArrayList<Entry> split){
+    /*
+     * Create Classifier on Leaf
+     */
+    String createClassifierLeaf(ArrayList<Entry> split) {
         int occurrences = 0;
         int mostOccurences = 0;
-        Entry mostCommon = null;
+        String mostCommon = null;
         ArrayList<Integer> nums = new ArrayList<Integer>();
-          for (String t : targets) {
-                occurrences = 0;
-                for (Entry e : rightSplit) {
-                    if (e.Target.equals(t)) {
-                        occurrences++;
-                    }
-                     if(occurrences > mostOccurences){
-                    mostCommon = e;
+        for (String t : targets) {
+            occurrences = 0;
+            for (Entry e : split) {
+                if (e.Target.equals(t)) {
+                    occurrences++;
                 }
+                if (occurrences > mostOccurences) {
+                    mostCommon = t;
                 }
-               
-                
+            }
+        }
+        return mostCommon;
     }
-          return mostCommon;
-    }
-   
-    void recurseOnSplit(int maxDepth, int depth){
-        //Get left and right splits
+
+    void recurseOnSplit(int maxDepth, int depth) {
+        /*Get left and right splits*/
         ArrayList<Entry> left = bestLeftSplit;
         ArrayList<Entry> right = bestRightSplit;
-        
+
+
         //If left or right are empty make it a leaf node
-        if(left.isEmpty()){
-            createLeaf(left);
+        if (left.isEmpty()) {
+            createClassifierLeaf(left);
             return;
         }
-        if(right.isEmpty()){
-            createLeaf(right);
+        if (right.isEmpty()) {
+            createClassifierLeaf(right);
             return;
         }
-        
+
         //check if at max depth. If so create a leaf node
-        if(depth >= maxDepth){
-            createLeaf(left);
-            createLeaf(right);
+        if (depth >= maxDepth) {
+            System.out.println("CALSSIFSAIASDF");
+            System.out.println(createClassifierLeaf(left));
+            System.out.println(createClassifierLeaf(right));
             return;
         }
-             System.out.println("Loop");
-          
-         splitTree(left);
-         recurseOnSplit(maxDepth,depth+1);
-           
-         splitTree(right);
-         recurseOnSplit(maxDepth,depth+1);        
+        //Breaks somehwere in here?
+        splitTree(left);
+        recurseOnSplit(maxDepth, depth + 1);
+//
+//        splitTree(right);
+//        recurseOnSplit(maxDepth, depth + 1);
     }
+
     /**
      * Build the tree
-     */
-    Tree buildTree(ArrayList<Double> data) {
+//     */
+//    Tree buildTree(ArrayList<Double> data) {
+//
+//        Tree bt = t.buildTree(data);
+//        return bt;
+//
+//    }
 
-        Tree bt = t.buildTree(data);
-        return bt;
-
-    }
-
-   void setTrainingData(String file, String delim) {
+    void setTrainingData(String file, String delim) {
         ImportData data = new ImportData(file, delim);
         data.readCSV();
         this.features = data.getFeatures();
@@ -223,7 +223,7 @@ public class CART {
         for (String a : targets) {
             System.out.println(a);
         }
-   }
+    }
 
     /**
      * Print Tree
