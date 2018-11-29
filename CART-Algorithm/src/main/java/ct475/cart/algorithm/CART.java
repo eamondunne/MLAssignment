@@ -15,6 +15,7 @@ public class CART {
 
     private Tree t = new Tree();
     private ArrayList<Integer> nodes = new ArrayList<Integer>();
+
     public ArrayList<Entry> features = new ArrayList<Entry>();
     private ArrayList<String> targets = new ArrayList<String>();
 
@@ -23,26 +24,20 @@ public class CART {
 
     private ArrayList<Entry> bestLeftSplit = new ArrayList<Entry>();
     private ArrayList<Entry> bestRightSplit = new ArrayList<Entry>();
-//    Data Stuff Goes Here
+
+    public CART() {}
 
     /**
-     * Constructor
-     */
-    public CART() {
-
-    }
-
-    /**
-     * Calculate cost of split
+     * Calculate Cost of Split using GINI Index
      */
     double getSplitCost(ArrayList<Entry> leftSplit, ArrayList<Entry> rightSplit, ArrayList<String> targets) {
-        if(leftSplit.size() == 0){
+        /* Return 1 of either side is empty */
+        if(leftSplit.isEmpty())
             return 1;
-        }
-        else if(rightSplit.size() == 0){
+        
+        if(rightSplit.isEmpty())
             return 1;
-        }
-        else{
+
         double gini = 0.0;
         double size;
         double leftscore = 1, rightscore = 1;
@@ -52,11 +47,8 @@ public class CART {
         double occurences = 0;
 
         double totalSize = leftSplit.size() + rightSplit.size();
-//        LEFT
-        System.out.println("PRE Left Score: " + leftscore);
-        System.out.println("Total Size: " + totalSize);
-        System.out.println("LEFT SIZE: " + leftSplit.size());
-        System.out.println("RIGHT SIZE: " + rightSplit.size());
+
+        /* Compute GINI Index for Left Split */
         for (String t : targets) {
             occurences = 0;
             System.out.println(t);
@@ -65,21 +57,13 @@ public class CART {
                     occurences++;
                 }
             }
-            System.out.println("Occurences: " + occurences);
             p = (double) occurences / (double) leftSplit.size();
             psqr = p*p;
-            System.out.println("psqr: " + psqr);
             leftscore -= psqr;
-            System.out.println("Left Score: " + leftscore);
         }
         gini = ((1 - leftscore)*(leftSplit.size() / totalSize));
-        System.out.println("GINILEFT: " + gini);
         
-//        RIGHT SIDE
-        System.out.println("PRE Right Score: " + rightscore);
-//        System.out.println("Total Size: " + totalSize);
-//        System.out.println("LEFT SIZE: " + leftSplit.size());
-//        System.out.println("RIGHT SIZE: " + rightSplit.size());
+        /* Compute GINI Index for Right Split */
         for (String t : targets) {
             occurences = 0;
             System.out.println(t);
@@ -88,19 +72,13 @@ public class CART {
                     occurences++;
                 }
             }
-            System.out.println("Occurences: " + occurences);
             p = (double) occurences / (double) rightSplit.size();
             psqr = p*p;
-            System.out.println("psqr: " + psqr);
             rightscore -= psqr;
-            System.out.println("Score: " + rightscore);
         }
         gini += (1 - rightscore)*(rightSplit.size() / totalSize);
-        System.out.println("GINITOTAL: " + gini);
-        System.out.println("END\n\n\n");
 
         return gini;
-    }
     }
     /**
      * Test costs for split
@@ -141,43 +119,33 @@ public class CART {
                 }
             }
         }
+        /* Used for Testing / Debugging */
         System.out.println("Best gini Score: " + lowestScore);
         System.out.println(lowestVal);
         System.out.println("Column to split on: " + colToSplit);
         System.out.println(bestLeftSplit.get(1).ColumnData);
         System.out.println(bestRightSplit.get(1).ColumnData);
-
     }
 
     /**
      * Build the tree
      */
     Tree buildTree(ArrayList<Double> data) {
-
         Tree bt = t.buildTree(data);
         return bt;
-
     }
 
     /**
-     * Set Data
+     * Set Training Data
      */
-    void setData() {
-        String file = "owls.csv";
-        String delim = ",";
-        ImportData owls = new ImportData(file, delim);
-        owls.readCSV();
-        this.features = owls.getFeatures();
-        this.targets = owls.getTargets();
+    void setTrainingData(String file, String delim) {
+        ImportData data = new ImportData(file, delim);
+        data.readCSV();
+        this.features = data.getFeatures();
+        this.targets = data.getTargets();
         for (String a : targets) {
             System.out.println(a);
         }
-//        System.out.println(targets);
-//        System.out.println(features.get(134).ColumnData);
-        // owls.printFeatures();
-        // owls.printTargets();
-        // owls.printTarget_Names();
-
     }
 
     /**
@@ -193,6 +161,5 @@ public class CART {
             printTree(current.left, level - 1);
             printTree(current.right, level - 1);
         }
-
     }
 }
