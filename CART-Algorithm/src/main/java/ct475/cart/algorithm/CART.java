@@ -215,26 +215,15 @@ public class CART {
 
     }
 
-    /**
-     * Set Data
-     */
-    void setData() {
-        String file = "owls.csv";
-        String delim = ",";
-        ImportData owls = new ImportData(file, delim);
-        owls.readCSV();
-        this.features = owls.getFeatures();
-        this.targets = owls.getTargets();
-//        for (String a : targets) {
-//            System.out.println(a);
-//        }
-//        System.out.println(targets);
-//        System.out.println(features.get(134).ColumnData);
-        // owls.printFeatures();
-        // owls.printTargets();
-        // owls.printTarget_Names();
-
-    }
+   void setTrainingData(String file, String delim) {
+        ImportData data = new ImportData(file, delim);
+        data.readCSV();
+        this.features = data.getFeatures();
+        this.targets = data.getTargets();
+        for (String a : targets) {
+            System.out.println(a);
+        }
+   }
 
     /**
      * Print Tree
