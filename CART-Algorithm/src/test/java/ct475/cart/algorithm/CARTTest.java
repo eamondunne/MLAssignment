@@ -71,6 +71,7 @@ public class CARTTest {
         CART instance = new CART();
         instance.setData(); 
         instance.splitTree(instance.features);
+        //instance.recurseOnSplit(3,0);
         // TODO review the generated test code and remove the default call to fail.
     }
 

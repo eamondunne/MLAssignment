@@ -23,6 +23,7 @@ public class CART {
 
     private ArrayList<Entry> bestLeftSplit = new ArrayList<Entry>();
     private ArrayList<Entry> bestRightSplit = new ArrayList<Entry>();
+    private int a = 0;
 //    Data Stuff Goes Here
 
     /**
@@ -36,72 +37,71 @@ public class CART {
      * Calculate cost of split
      */
     double getSplitCost(ArrayList<Entry> leftSplit, ArrayList<Entry> rightSplit, ArrayList<String> targets) {
-        if(leftSplit.size() == 0){
+        if (leftSplit.size() == 0) {
             return 1;
-        }
-        else if(rightSplit.size() == 0){
+        } else if (rightSplit.size() == 0) {
             return 1;
-        }
-        else{
-        double gini = 0.0;
-        double size;
-        double leftscore = 1, rightscore = 1;
-        double p = 0;
-        double psqr;
-        String classVal;
-        double occurences = 0;
+        } else {
+            double gini = 0.0;
+            double size;
+            double leftscore = 1, rightscore = 1;
+            double p = 0;
+            double psqr;
+            String classVal;
+            double occurences = 0;
 
-        double totalSize = leftSplit.size() + rightSplit.size();
+            double totalSize = leftSplit.size() + rightSplit.size();
 //        LEFT
-        System.out.println("PRE Left Score: " + leftscore);
-        System.out.println("Total Size: " + totalSize);
-        System.out.println("LEFT SIZE: " + leftSplit.size());
-        System.out.println("RIGHT SIZE: " + rightSplit.size());
-        for (String t : targets) {
-            occurences = 0;
-            System.out.println(t);
-            for (Entry e : leftSplit) {
-                if (e.Target.equals(t)) {
-                    occurences++;
-                }
-            }
-            System.out.println("Occurences: " + occurences);
-            p = (double) occurences / (double) leftSplit.size();
-            psqr = p*p;
-            System.out.println("psqr: " + psqr);
-            leftscore -= psqr;
-            System.out.println("Left Score: " + leftscore);
-        }
-        gini = ((1 - leftscore)*(leftSplit.size() / totalSize));
-        System.out.println("GINILEFT: " + gini);
-        
-//        RIGHT SIDE
-        System.out.println("PRE Right Score: " + rightscore);
+//        System.out.println("PRE Left Score: " + leftscore);
 //        System.out.println("Total Size: " + totalSize);
 //        System.out.println("LEFT SIZE: " + leftSplit.size());
 //        System.out.println("RIGHT SIZE: " + rightSplit.size());
-        for (String t : targets) {
-            occurences = 0;
-            System.out.println(t);
-            for (Entry e : rightSplit) {
-                if (e.Target.equals(t)) {
-                    occurences++;
+            for (String t : targets) {
+                occurences = 0;
+//            System.out.println(t);
+                for (Entry e : leftSplit) {
+                    if (e.Target.equals(t)) {
+                        occurences++;
+                    }
                 }
+//            System.out.println("Occurences: " + occurences);
+                p = (double) occurences / (double) leftSplit.size();
+                psqr = p * p;
+//            System.out.println("psqr: " + psqr);
+                leftscore -= psqr;
+//            System.out.println("Left Score: " + leftscore);
             }
-            System.out.println("Occurences: " + occurences);
-            p = (double) occurences / (double) rightSplit.size();
-            psqr = p*p;
-            System.out.println("psqr: " + psqr);
-            rightscore -= psqr;
-            System.out.println("Score: " + rightscore);
-        }
-        gini += (1 - rightscore)*(rightSplit.size() / totalSize);
-        System.out.println("GINITOTAL: " + gini);
-        System.out.println("END\n\n\n");
+            gini = ((1 - leftscore) * (leftSplit.size() / totalSize));
+//        System.out.println("GINILEFT: " + gini);
 
-        return gini;
+//        RIGHT SIDE
+//        System.out.println("PRE Right Score: " + rightscore);
+//        System.out.println("Total Size: " + totalSize);
+//        System.out.println("LEFT SIZE: " + leftSplit.size());
+//        System.out.println("RIGHT SIZE: " + rightSplit.size());
+            for (String t : targets) {
+                occurences = 0;
+//            System.out.println(t);
+                for (Entry e : rightSplit) {
+                    if (e.Target.equals(t)) {
+                        occurences++;
+                    }
+                }
+//           System.out.println("Occurences: " + occurences);
+                p = (double) occurences / (double) rightSplit.size();
+                psqr = p * p;
+//            System.out.println("psqr: " + psqr);
+                rightscore -= psqr;
+//            System.out.println("Score: " + rightscore);
+            }
+            gini += (1 - rightscore) * (rightSplit.size() / totalSize);
+//        System.out.println("GINITOTAL: " + gini);
+//        System.out.println("END\n\n\n");
+
+            return gini;
+        }
     }
-    }
+
     /**
      * Test costs for split
      */
@@ -120,14 +120,16 @@ public class CART {
      * Split the tree
      */
     void splitTree(ArrayList<Entry> features) {
+       
         double giniIndex;
-        double lowestIndex = 1000, lowestScore = 1;
+        int lowestIndex = 1000;
+        double lowestScore = 1;
         int colToSplit = 100;
         double lowestVal = 1000;
         for (int i = 0; i < features.size(); i++) {
-            for (int x = 0; x < features.get(i).ColumnData.size(); x++) {
+            for (int x = 0; x < features.get(i).ColumnData.size(); x++) {   
                 leftSplit.clear();
-                rightSplit.clear();
+                  rightSplit.clear();
                 testSplits(x, features.get(i).ColumnData.get(x), features);
                 giniIndex = getSplitCost(leftSplit, rightSplit, targets);
                 if (giniIndex < lowestScore) {
@@ -136,19 +138,73 @@ public class CART {
                     colToSplit = x;
                     lowestScore = giniIndex;
                     bestLeftSplit = leftSplit;
-                    bestRightSplit = rightSplit;
-
+                    bestRightSplit = rightSplit;         
                 }
+                 
+            
             }
+          
         }
         System.out.println("Best gini Score: " + lowestScore);
         System.out.println(lowestVal);
         System.out.println("Column to split on: " + colToSplit);
-        System.out.println(bestLeftSplit.get(1).ColumnData);
-        System.out.println(bestRightSplit.get(1).ColumnData);
-
+        System.out.print(bestLeftSplit.get(lowestIndex).ColumnData);
+        System.out.println(bestLeftSplit.get(lowestIndex).Target);
+        System.out.print(bestRightSplit.get(lowestIndex).ColumnData);
+        System.out.println(bestRightSplit.get(lowestIndex).Target);
+   
     }
-
+    
+    Entry createLeaf(ArrayList<Entry> split){
+        int occurrences = 0;
+        int mostOccurences = 0;
+        Entry mostCommon = null;
+        ArrayList<Integer> nums = new ArrayList<Integer>();
+          for (String t : targets) {
+                occurrences = 0;
+                for (Entry e : rightSplit) {
+                    if (e.Target.equals(t)) {
+                        occurrences++;
+                    }
+                     if(occurrences > mostOccurences){
+                    mostCommon = e;
+                }
+                }
+               
+                
+    }
+          return mostCommon;
+    }
+   
+    void recurseOnSplit(int maxDepth, int depth){
+        //Get left and right splits
+        ArrayList<Entry> left = bestLeftSplit;
+        ArrayList<Entry> right = bestRightSplit;
+        
+        //If left or right are empty make it a leaf node
+        if(left.isEmpty()){
+            createLeaf(left);
+            return;
+        }
+        if(right.isEmpty()){
+            createLeaf(right);
+            return;
+        }
+        
+        //check if at max depth. If so create a leaf node
+        if(depth >= maxDepth){
+            createLeaf(left);
+            createLeaf(right);
+            return;
+        }
+             System.out.println("Loop");
+          
+         splitTree(left);
+         recurseOnSplit(maxDepth,depth+1);
+           
+         splitTree(right);
+         recurseOnSplit(maxDepth,depth+1);        
+    }
     /**
      * Build the tree
      */
@@ -169,9 +225,9 @@ public class CART {
         owls.readCSV();
         this.features = owls.getFeatures();
         this.targets = owls.getTargets();
-        for (String a : targets) {
-            System.out.println(a);
-        }
+//        for (String a : targets) {
+//            System.out.println(a);
+//        }
 //        System.out.println(targets);
 //        System.out.println(features.get(134).ColumnData);
         // owls.printFeatures();
