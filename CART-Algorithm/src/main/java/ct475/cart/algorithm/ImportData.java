@@ -24,9 +24,6 @@ public class ImportData {
     String split;
     ArrayList<Entry> features = new ArrayList<Entry>();
     ArrayList<String> targets = new ArrayList<String>();
-//    
-//    ArrayList<Integer> targets = new ArrayList<Integer>();
-//    ArrayList<String> targets_names = new ArrayList<String>();
 
     public ImportData(String file, String delim) {
         this.CSVFile = file;
@@ -36,44 +33,26 @@ public class ImportData {
     public void readCSV() {
         try {
             ArrayList<Double> index = new ArrayList<Double>();
-                int x = 0;
-                
+            int x = 0;
+
             br = new BufferedReader(new FileReader(CSVFile));
             while ((line = br.readLine()) != null) {
-                
-                String[] owls = line.split(split);
+
+                String[] data = line.split(split);
                 String target;
                 ArrayList<Double> tempFeatures = new ArrayList<Double>();
-                for (int i = 0; i < owls.length - 1; i++) {
-                   tempFeatures.add(Double.parseDouble(owls[i]));
-                   
+                for (int i = 0; i < data.length - 1; i++) {
+                    tempFeatures.add(Double.parseDouble(data[i]));
+
                 }
-                target = owls[owls.length-1];
-                
+                target = data[data.length - 1];
+
                 features.add(new Entry(x, tempFeatures, target));
-                if(!targets.contains(target)){
+                if (!targets.contains(target)) {
                     targets.add(target);
                 }
-                
-//                for (int i = owls.length - 1; i < owls.length; i++) {
-//                    targets_names.add(owls[i]);
-//                    if (owls[i].startsWith("LongEaredOwl")) {
-//                        targets.add(0);
-//                    } else if (owls[i].startsWith("SnowyOwl")) {
-//                        targets.add(1);
-//                    } else if (owls[i].startsWith("BarnOwl")) {
-//                        targets.add(2);
-//                    }
-//
-//                }
-//                  System.out.print(features.get(x).ColumnData);
-//                  System.out.print(" [" + targets.get(x)  + "] ");
-//                  System.out.print(targets_names.get(x));
-//                  System.out.println();
-x++;
+                x++;
             }
-         
-
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -81,24 +60,22 @@ x++;
             e.printStackTrace();
         }
     }
-    
-    public ArrayList<Entry> getFeatures(){
+
+    public ArrayList<Entry> getFeatures() {
         return features;
     }
-      public ArrayList getTargets(){
+
+    public ArrayList getTargets() {
         return targets;
     }
-//      public ArrayList getTarget_Names(){
-//        return targets_names;
-//    }
-      
-          public void printFeatures(){
+
+
+    public void printFeatures() {
         System.out.println(features);
     }
-      public void printTargets(){
+
+    public void printTargets() {
         System.out.println(targets);
     }
-//      public void printTarget_Names(){
-//        System.out.println(targets_names);
-//    }
+
 }
