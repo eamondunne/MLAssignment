@@ -26,14 +26,14 @@ public class CARTTest {
      */
     @Test
     public void testSplitTree() {
-        System.out.println("splitTree");
+     //   System.out.println("splitTree");
         String file = "owls.csv";
         String delim = ",";
         CART instance = new CART();
 
         instance.setTrainingData(file, delim); 
-        instance.splitTree(instance.features);
-        instance.recurseOnSplit(1,0);
+        Branches root = instance.splitTree(instance.features);
+        instance.recurseOnSplit(root,3,0);
 
     }
 
