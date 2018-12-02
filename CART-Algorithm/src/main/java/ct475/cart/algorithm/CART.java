@@ -95,7 +95,7 @@ public class CART {
         Branches bestBranch = new Branches();
         double giniIndex;
         int lowestIndex = 1000;
-        double lowestScore = 1;
+        double lowestScore = 100;
         int colToSplit = 100;
         double valToSplit = 1000;
         ArrayList<Entry> BestLeft = null;
@@ -112,16 +112,21 @@ public class CART {
                     BestLeft = new ArrayList<>(leftSplit);
                     BestRight = new ArrayList<>(rightSplit);
                 }
+                else if(giniIndex == 100){
+                    break;
+                }
                 leftSplit.clear();
                 rightSplit.clear();
             }
         }
+     
+        if(lowestScore != 100){
         bestBranch.setBranches(BestLeft, BestRight);
-        System.out.println("bestBranch Size: " + bestBranch.getLeft().size());
+       // System.out.println("bestBranch Size: " + bestBranch.getLeft().size());
         System.out.println("Best gini Score: " + lowestScore);
         System.out.println("Value to split on: " + valToSplit);
         System.out.println("Column to split on: " + colToSplit);
-
+        }
         return bestBranch;
 
     }
@@ -152,11 +157,11 @@ public class CART {
         ArrayList<Entry> left = b.getLeft();
         ArrayList<Entry> right = b.getRight();
 
-        if (left.isEmpty()) {
+        if (left == null) {
             System.out.println("EMPTY TREE!");
             return;
         }
-        if (right.isEmpty()) {
+        if (right == null) {
             System.out.println("EMPTY TREE!");
             return;
         }
@@ -173,6 +178,8 @@ public class CART {
 
         Branches rightBranches = splitTree(right);
         recurseOnSplit(rightBranches, maxDepth, depth + 1);
+ 
+      
     }
 
     void setTrainingData(String file, String delim) {

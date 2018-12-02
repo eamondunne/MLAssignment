@@ -33,7 +33,7 @@ public class CARTTest {
 
         instance.setTrainingData(file, delim); 
         Branches root = instance.splitTree(instance.features);
-        instance.recurseOnSplit(root,5,1);
+        instance.recurseOnSplit(root,3,0);
         
 
     }
