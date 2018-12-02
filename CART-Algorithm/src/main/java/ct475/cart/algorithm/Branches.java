@@ -19,11 +19,16 @@ public class Branches {
         left = leftSplit;
         right = rightSplit;
     }
+    public Branches(){}
     
     ArrayList<Entry> getLeft(){
         return left;
     }
      ArrayList<Entry> getRight(){
         return right;
+    }
+    void setBranches(ArrayList<Entry> left, ArrayList<Entry> right){
+        this.left = left;
+        this.right = right;
     }
 }
