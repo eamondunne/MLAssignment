@@ -7,7 +7,11 @@ package ct475.cart.algorithm;
 
 /**
  *
- * @author Cormac Buckley
+ * @author Cormac Buckley, Eamon Dunne
+ */
+
+/*
+ * Data Structure, Agreed Upon By Both
  */
 public class Node {
     Double value;

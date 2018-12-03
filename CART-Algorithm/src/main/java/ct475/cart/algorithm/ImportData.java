@@ -16,6 +16,9 @@ import java.io.IOException;
 import static java.lang.Double.parseDouble;
 import java.util.ArrayList;
 
+/*
+ * Data Import was all initially built by Cormac, with some later modifications by Eamon
+ */
 public class ImportData {
 
     String CSVFile;

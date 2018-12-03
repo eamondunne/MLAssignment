@@ -28,7 +28,8 @@ public class CART {
     }
 
     /**
-     * Calculate cost of split
+     * Calculate Cost of Split using GINI Index
+     * Implemented by Eamon
      */
     double getSplitCost(ArrayList<Entry> leftSplit, ArrayList<Entry> rightSplit, ArrayList<String> targets) {
         if (leftSplit.isEmpty()) {
@@ -76,6 +77,7 @@ public class CART {
 
     /**
      * Test costs for split to find best feature
+     * Implemented by Cormac
      */
     void testSplits(int index, double featureCheck, ArrayList<Entry> features) {
 
@@ -90,6 +92,7 @@ public class CART {
 
     /**
      * Split the tree
+     * Initial Implementation by Cormac with modifications by Eamon
      */
     Branches splitTree(ArrayList<Entry> features) {
         Branches bestBranch = new Branches();
@@ -133,6 +136,7 @@ public class CART {
 
     /*
      * Create Classifier on Leaf
+     * Initially Implemented by Cormac, finished and modified by Eamon
      */
     String createClassifierLeaf(ArrayList<Entry> split) {
         int occurrences = 0;
@@ -152,6 +156,10 @@ public class CART {
         return mostCommon;
     }
 
+    /*
+     * Recursively Split Tree until MaxDepth reached
+     * Implemented by Cormac
+     */
     void recurseOnSplit(Branches b, int maxDepth, int depth) {
         /*Get left and right splits*/
         ArrayList<Entry> left = b.getLeft();
@@ -177,31 +185,17 @@ public class CART {
         recurseOnSplit(leftBranches, maxDepth, depth + 1);
 
         Branches rightBranches = splitTree(right);
-        recurseOnSplit(rightBranches, maxDepth, depth + 1);
- 
-      
+        recurseOnSplit(rightBranches, maxDepth, depth + 1);  
     }
-
+    
+    /*
+     * Import Data from CSV File
+     * Implemented by Cormac, Modifications by Eamon
+     */
     void setTrainingData(String file, String delim) {
         ImportData data = new ImportData(file, delim);
         data.readCSV();
         this.features = data.getFeatures();
         this.targets = data.getTargets();
-    }
-
-    /**
-     * Print Tree
-     */
-    void printTree(Node current, int level) {
-        if (current == null) {
-            return;
-        }
-        if (level == 1) {
-            System.out.println(current.value + " ");
-        } else {
-            printTree(current.left, level - 1);
-            printTree(current.right, level - 1);
-        }
-
     }
 }

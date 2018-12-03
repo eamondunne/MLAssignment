@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Cormac Buckley
+ * @author Cormac Buckley, Eamon Dunne
  */
 public class CARTTest {
     
@@ -23,6 +23,7 @@ public class CARTTest {
  
     /**
      * Test of splitTree method, of class CART.
+     * Implemented and modified by both throughout development
      */
     @Test
     public void testSplitTree() {

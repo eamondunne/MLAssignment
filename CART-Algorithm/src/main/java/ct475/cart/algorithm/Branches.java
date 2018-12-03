@@ -9,8 +9,12 @@ import java.util.ArrayList;
  */
 /**
  *
- * @author Cormac Buckley
+ * @author Cormac Buckley, Eamon Dunne
  */
+
+ /*
+  * Data Structure, agreed upon by both
+  */
 public class Branches {
     private ArrayList<Entry> left = new ArrayList<Entry>();
     private ArrayList<Entry> right = new ArrayList<Entry>();
